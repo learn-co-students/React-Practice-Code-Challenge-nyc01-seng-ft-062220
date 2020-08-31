@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import SushiContainer from './containers/SushiContainer';
 import Table from './containers/Table';
+import SushiForm from './containers/SushiForm'
 
-// Endpoint!
 const API = "http://localhost:3000/sushis"
 
 class App extends Component {
@@ -11,8 +11,7 @@ class App extends Component {
     sushis: [],
     eaten: [],
     wallet: 100,
-    displayIndex: 0,
-    displayflag: false
+    displayIndex: 0
   }
 
   //api call 
@@ -26,12 +25,14 @@ class App extends Component {
 
 
   eatSushi = (sushiObj) => {
+    //update the wallet amount 
     const newWallet = this.state.wallet - sushiObj.price
-
+    //we keep track using the eaten array since user can only eat once from 1 plate. 
+    //also user cannot eat if they have no money
     if (!this.state.eaten.includes(sushiObj) && newWallet >=0 ) {
       this.setState({
-        eaten: [...this.state.eaten, sushiObj],
-        wallet: newWallet
+        eaten: [...this.state.eaten, sushiObj], //update the eaten array
+        wallet: newWallet //update wallet amount
       })
     }
   }
@@ -39,7 +40,7 @@ class App extends Component {
   moreSushi = () => {
     let newDisplayIndex = this.state.displayIndex + 4
 
-    //bonus
+    //condition where when all the sushi runs out... reset back to 0 
     if(newDisplayIndex >= this.state.sushis.length){
       newDisplayIndex = 0
     }
@@ -53,17 +54,25 @@ class App extends Component {
     return this.state.sushis.slice(this.state.displayIndex, this.state.displayIndex+4)
   }
 
+  submitHandler = e => {
+    e.preventDefault()
+    let addedAmount = parseInt(e.target[0].value)
+    if(addedAmount > 0){
+      let updateWallet = this.state.wallet + addedAmount
+      this.setState({ wallet: updateWallet })
+    }
+  }
 
   render() {
     return (
       <div className="app">
-      {this.state.displayFlag === true ? <SushiContainer sushis={this.displayFourSushi()}
+      <SushiContainer sushis={this.displayFourSushi()}
       moreSushi={this.moreSushi}
       eatSushi={this.eatSushi}
-      eaten={this.state.eaten} /> : "Loading Sushi"}
-      
+      eaten={this.state.eaten} />
       <Table newBudget={this.state.wallet}
       eaten={this.state.eaten} />
+      <SushiForm submitHandler={this.submitHandler} />
       </div>
     );
   }

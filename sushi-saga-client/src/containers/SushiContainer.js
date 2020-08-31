@@ -9,7 +9,7 @@ class SushiContainer extends React.Component {
         <div className="belt">
           {
             this.props.sushis.map((sushi => {
-                return <Sushi sushi={sushi} key={sushi.id} eatSushi={this.props.eatSushi} taken={this.props.eaten.includes(sushi)}/>
+                return <Sushi sushi={sushi} key={sushi.id} eatSushi={this.props.eatSushi} eaten={this.props.eaten.includes(sushi)}/>
             }))
           }
           <MoreButton moreSushi={this.props.moreSushi}/>

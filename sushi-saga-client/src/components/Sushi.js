@@ -9,7 +9,7 @@ const Sushi = (props) => {
            onClick={() => {props.eatSushi(props.sushi)}}>
         { 
           /* Tell me if this sushi has been eaten! */ 
-          props.taken ?
+          props.eaten ?
             null
           :
             <img src={props.sushi.img_url} alt="sushi" width="100%" />
