@@ -1,9 +1,17 @@
 import React from 'react'
 
-const MoreButton = (props) => {
-    return <button onClick={/* Fill me in! */ null}>
+class MoreButton extends React.Component {
+  clickHandler = () => {
+    this.props.containerHandler()
+  }
+  
+  render () {
+    return (
+      <button onClick={this.clickHandler}>
             More sushi!
-          </button>
+      </button>
+    )  
+  }
 }
 
 export default MoreButton
