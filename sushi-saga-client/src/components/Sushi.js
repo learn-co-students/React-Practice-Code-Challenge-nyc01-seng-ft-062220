@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react'
 
-const Sushi = (props) => {
+class Sushi extends  React.Component {
+  render() {
+   
   return (
     <div className="sushi">
       <div className="plate" 
@@ -10,14 +12,15 @@ const Sushi = (props) => {
           false ?
             null
           :
-            <img src={/* Give me an image source! */ } width="100%" />
+            <img src={this.props.obj.img_url } width="100%" />
         }
       </div>
       <h4 className="sushi-details">
-        {/* Give me a name! */} - ${/* Give me a price! */}
+        {this.props.obj.name} - ${this.props.obj.price}
       </h4>
     </div>
   )
+      }
 }
 
 export default Sushi
